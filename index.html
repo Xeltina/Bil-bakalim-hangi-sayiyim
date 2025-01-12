@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bil Bakalim Hangi sayiyim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            width: 60px;
+            margin-top: 10px;
+        }
+        input[type="button"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Bil bakalim Hangi Sayiyim</h1>
+<p>1 ile 100 arasında bir sayı tahmin edin!</p>
+
+<form id="gameForm">
+    <input type="number" id="guess" min="1" max="100" required>
+    <input type="button" value="Tahmin Et" onclick="checkGuess()">
+</form>
+
+<p id="message"></p>
+<p id="attempts"></p>
+
+<script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    function checkGuess() {
+        let userGuess = parseInt(document.getElementById("guess").value);
+        let message = "";
+
+        if (attempts < maxAttempts) {
+            attempts++;
+
+            if (userGuess < randomNumber) {
+                message = "Daha büyük bir sayı tahmin edin.";
+            } else if (userGuess > randomNumber) {
+                message = "Daha küçük bir sayı tahmin edin.";
+            } else {
+                message = "Tebrikler! Sayıyı doğru tahmin ettiniz.";
+                randomNumber = Math.floor(Math.random() * 100) + 1;
+                attempts = 0;
+            }
+        } else {
+            message = "Deneme hakkınız bitti! Sayıyı bilemediniz.";
+        }
+
+        document.getElementById("message").innerHTML = message;
+        document.getElementById("attempts").innerHTML = "Deneme sayınız: " + attempts;
+    }
+</script>
+
+</body>
+</html>
